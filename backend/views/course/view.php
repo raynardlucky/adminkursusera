@@ -28,7 +28,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'course_id',
                 'name',
                 'program',
-                'rating',
             ],
         ]) ?>
     </div>

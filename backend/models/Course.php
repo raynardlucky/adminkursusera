@@ -10,9 +10,11 @@ use Yii;
  * @property int $course_id
  * @property string $name
  * @property string $program
- * @property string $rating
  *
+ * @property CourseDetail[] $courseDetails
  * @property Kelas[] $kelas
+ * @property Teaching[] $teachings
+ * @property Instructor[] $instructors
  */
 class Course extends \yii\db\ActiveRecord
 {
@@ -30,8 +32,8 @@ class Course extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'program', 'rating'], 'required'],
-            [['name', 'program', 'rating'], 'string', 'max' => 255],
+            [['name', 'program'], 'required'],
+            [['name', 'program'], 'string', 'max' => 255],
         ];
     }
 
@@ -44,8 +46,15 @@ class Course extends \yii\db\ActiveRecord
             'course_id' => 'Course ID',
             'name' => 'Name',
             'program' => 'Program',
-            'rating' => 'Rating',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCourseDetails()
+    {
+        return $this->hasMany(CourseDetail::className(), ['course_id' => 'course_id']);
     }
 
     /**
@@ -56,9 +65,19 @@ class Course extends \yii\db\ActiveRecord
         return $this->hasMany(Kelas::className(), ['course_id' => 'course_id']);
     }
 
-    public function getProgramName()
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTeachings()
     {
-        return $this->hasOne(Program::className(), ['id' => 'program']);
-//        return $this->program ? $this->program->name : 'name';
+        return $this->hasMany(Teaching::className(), ['course_id' => 'course_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getInstructors()
+    {
+        return $this->hasMany(Instructor::className(), ['inid' => 'instructor_id'])->viaTable('teaching', ['course_id' => 'course_id']);
     }
 }

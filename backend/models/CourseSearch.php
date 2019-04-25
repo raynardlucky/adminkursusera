@@ -19,7 +19,7 @@ class CourseSearch extends Course
     {
         return [
             [['course_id'], 'integer'],
-            [['name', 'program', 'rating'], 'safe'],
+            [['name', 'program'], 'safe'],
         ];
     }
 
@@ -62,8 +62,7 @@ class CourseSearch extends Course
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'program', $this->program])
-            ->andFilterWhere(['like', 'rating', $this->rating]);
+            ->andFilterWhere(['like', 'program', $this->program]);
 
         return $dataProvider;
     }

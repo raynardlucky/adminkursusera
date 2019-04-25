@@ -26,13 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'course_id',
                 'name',
                 'program',
-//                [
-//                    'label' => 'program',
-//                    'value' => function ($data) {
-//                        return $data->program->name;
-//                    }
-//                ],
-                'rating',
 
                 ['class' => 'yii\grid\ActionColumn'],
             ],
